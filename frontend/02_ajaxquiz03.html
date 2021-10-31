@@ -10,12 +10,17 @@
       div.question-box {
         margin: 10px 0 20px 0;
       }
+
       div.question-box > div {
         margin-top: 30px;
       }
     </style>
 
     <script>
+      $(document).ready(function () {
+        q1();
+      });
+
       function q1() {
         $.ajax({
           type: "GET",
@@ -29,6 +34,7 @@
       }
     </script>
   </head>
+
   <body>
     <h1>JQuery+Ajax의 조합을 연습하자!</h1>
 
