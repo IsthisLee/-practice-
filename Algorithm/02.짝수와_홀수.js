@@ -12,6 +12,10 @@ console.log(solution(num));
 
 // Solution 2
 //ToKnow : 삼항연산자
+//3항 연산자 (if 문을 간단하게!)
+//[형식]
+//condition ? 'true' : 'false';
+
 function evenOrOdd(num) {
   return num % 2 ? "Odd" : "Even";
 }
