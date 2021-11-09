@@ -10,7 +10,7 @@ let arr2 = [
 function solution(arr1, arr2) {
   let answer = [];
   for (let i = 0; i < arr1.length; i++) {
-    answer[i] = new Array();
+    answer[i] = new Array(); //굳이 메소드를 사용하지 않아도 됐었다. new Array() 대신 []만 입력해도 된다.
     for (let k = 0; k < arr1[i].length; k++) {
       answer[i][k] = arr1[i][k] + arr2[i][k];
     }

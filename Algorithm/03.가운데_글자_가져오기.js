@@ -12,3 +12,14 @@ function solution(s) {
 }
 
 console.log(solution(s));
+
+//substr() 메소드는 이제 쓰면 안된다고 해서 대체한 코드
+function solution(s) {
+  let a = Math.floor(s.length / 2);
+  if (s.length % 2 === 0) {
+    a = s.substring(--a, a + 2); //substr 메소드로 원하는 문자열 가져옴.
+  } else {
+    a = s.substring(a, a + 1);
+  }
+  return a;
+}
