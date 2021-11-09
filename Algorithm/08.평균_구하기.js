@@ -14,3 +14,4 @@ console.log(solution(arr));
 function average(array) {
   return array.reduce((a, b) => a + b) / array.length;
 }
+//
