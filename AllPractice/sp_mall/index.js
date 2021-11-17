@@ -2,15 +2,22 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
-const goodsRouter = require("./routes/goods");
-const userRouter = require("./routes/user");
+//분리한 schemas파일 연결(mongodb 연동 파일, schema 파일)
+const connect = require("./schemas");
+connect();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static("public"));
 
-app.use("/goods", goodsRouter);
-app.use("/user", userRouter);
+//const goodsRouter = require("./routes/goods");
+//const userRouter = require("./routes/user");
+
+const goodsRouter = require("./routers/goods");
+app.use("/api", [goodsRouter]);
+
+// app.use("/goods", goodsRouter);
+// app.use("/user", userRouter);
 
 app.use((req, res, next) => {
   console.log(req);
@@ -65,17 +72,6 @@ app.get("/detail", (req, res) => {
 // app.get("/user/register", (req, res) => {
 //   res.send("회원가입 페이지");
 // });
-
-const mongoose = require("mongoose");
-
-app.get("/mongodb", async (req, res) => {
-  await mongoose.connect("mongodb://localhost/voyage", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-
-  res.send("ok");
-});
 
 app.listen(port, () => {
   console.log(`listening at http://localhost:${port}`);
