@@ -14,7 +14,7 @@ db.on("error", console.error.bind(console, "connection error:"));
 const app = express();
 const router = express.Router();
 
-//회원가입
+//회원가입 API
 router.post("/users", async (req, res) => {
   const { nickname, email, password, confirmPassword } = req.body;
 
@@ -41,7 +41,7 @@ router.post("/users", async (req, res) => {
   res.status(201).send({});
 });
 
-//로그인
+//로그인 API
 router.post("/auth", async (req, res) => {
   const { email, password } = req.body;
 
@@ -60,6 +60,7 @@ router.post("/auth", async (req, res) => {
   });
 });
 
+//유저 정보 조회 API
 router.get("/users/me", authMiddleware, async (req, res) => {
   const { user } = res.locals;
   res.send({ user });
