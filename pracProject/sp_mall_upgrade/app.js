@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const User = require("./models/user");
+const authMiddleware = require("./middlewares/auth-middleware");
 
 mongoose.connect("mongodb://localhost/shopping-demo", {
   useNewUrlParser: true,
@@ -57,6 +58,11 @@ router.post("/auth", async (req, res) => {
   res.send({
     token,
   });
+});
+
+router.get("/users/me", authMiddleware, async (req, res) => {
+  const { user } = res.locals;
+  res.send({ user });
 });
 
 app.use("/api", express.urlencoded({ extended: false }), router); //HTTP Request에서 Body에 담긴 Form(URL Encoded) 형식의 데이터를 express 서버에서 사용할 수 있게 해주는 미들웨어.
