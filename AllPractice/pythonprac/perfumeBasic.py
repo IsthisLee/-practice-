@@ -12,8 +12,8 @@ bucketName = 'perflowerbucket1' # 생성 및 사용할 버킷 이름
 
 s3 = boto3.client(
         's3',  # 사용할 서비스 이름, ec2이면 'ec2', s3이면 's3', dynamodb이면 'dynamodb'
-        aws_access_key_id="AKIAZE5ACPNGILEXNFCU",         # 액세스 ID
-        aws_secret_access_key="/8sWboNy7OiH5IqDyycRhrchgYC51c59PLPFtpBq")    # 비밀 엑세스 키
+        aws_access_key_id="",         # 액세스 ID
+        aws_secret_access_key="")    # 비밀 엑세스 키
 
 def create_s3_bucket(bucket_name):
     print("Creating a bucket... " + bucket_name)
