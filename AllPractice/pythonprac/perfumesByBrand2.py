@@ -1,39 +1,9 @@
 from selenium import webdriver
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
-from urllib.request import urlopen
-from botocore.exceptions import ClientError
-from urllib import parse
 
-import time, re, datetime, boto3, os, glob
+import time, re, datetime
 import pandas as pd
-
-bucketName = 'perflowerbucket1' # 생성 및 사용할 버킷 이름
-
-s3 = boto3.client(
-        's3',  # 사용할 서비스 이름, ec2이면 'ec2', s3이면 's3', dynamodb이면 'dynamodb'
-        aws_access_key_id="AKIAZE5ACPNGILEXNFCU",         # 액세스 ID
-        aws_secret_access_key="/8sWboNy7OiH5IqDyycRhrchgYC51c59PLPFtpBq")    # 비밀 엑세스 키
-
-def create_s3_bucket(bucket_name):
-    print("Creating a bucket... " + bucket_name)
-
-    try:
-        response = s3.create_bucket(
-            Bucket=bucket_name,
-            CreateBucketConfiguration={
-                'LocationConstraint': 'ap-northeast-2' # Seoul  # us-east-1을 제외한 지역은 LocationConstraint 명시해야함.
-            }
-        )
-        return response
-    except ClientError as e:
-        if e.response['Error']['Code'] == 'BucketAlreadyOwnedByYou':
-            print("Bucket already exists. skipping..")
-        else:
-            print("Unknown error, exit..")
-
-response = create_s3_bucket(bucket_name=bucketName)
-print("Bucket : " + str(response))
 
 #webdriver 객체 생성
 driver = webdriver.Chrome(executable_path="/Users/isthis/Downloads/chromedriver")
@@ -79,7 +49,6 @@ for a in range(pagesCnt):
     for li in uls:
         a = li.select_one('div > a > div > div:nth-child(1) > div.srchProductUnitTitle > strong')
         originImgUrl = li.select_one('div > div.srchProductUnitImageArea > a > div.srchThumbImageWrap > img')['src']
-
         if a is not None:
             brand = a.text
 
@@ -174,34 +143,13 @@ for a in range(pagesCnt):
 
                     checkFirst()
 
-                    # 이미지 저장
-                    with urlopen(originImgUrl) as f:
-                        with open('./img/' + str(title) + '.jpg', 'wb') as h:  # 이미지경로 + 사진제목 + 확장자는 jpg
-                            img = f.read()  # 이미지 읽기
-                            h.write(img)  # 이미지 저장
-
-                    input_path = "/Users/isthis/Documents/2021/Programming/Practice/AllPractice/pythonprac/img/"
-                    files = glob.glob(os.path.join(input_path, f'{title}*'))
-                    stored_names = list(map(lambda x: x.split("/")[10], files))
-                    print(files)
-                    print(stored_names)
-
-                    for file, name in zip(files, stored_names):
-                        s3.upload_file(file, bucketName, f'perfumes/{name}')
-                        changedUrl = parse.quote(name)
-                        changedUrl = changedUrl.replace('%20', '+')
-                        imgUrl = f'https://{bucketName}.s3.ap-northeast-2.amazonaws.com/perfumes/' + changedUrl
-
                     row = {
-                        #'brand' : brand,
                         'perfumeName' : title,
                         'price' : int(standardPrice),
                         'likeCnt' : 0,
                         'reviewCnt' : 0,
-                        'originImgUrl' : originImgUrl,
-                        'imgUrl' : imgUrl
+                        'brandName': brand,
                     }
-
                     result.append(row)
                     print(row)
         forCnt += 1
@@ -218,7 +166,7 @@ print(result)
 print(len(result))
 
 df = pd.DataFrame(result)
-df.to_csv('./perfumeBasic.cvs', index=False)
+df.to_csv('./perfumesByBrand.cvs', index=False)
 
 driver.quit()
 
