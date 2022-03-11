@@ -180,17 +180,18 @@ for a in range(pagesCnt):
                             img = f.read()  # 이미지 읽기
                             h.write(img)  # 이미지 저장
 
-                    input_path = "/Users/isthis/Documents/2021/Programming/Practice/AllPractice/pythonprac/img/"
-                    files = glob.glob(os.path.join(input_path, f'{title}*'))
-                    stored_names = list(map(lambda x: x.split("/")[10], files))
+                    #이미지 저장 후 S3에 업로드
+                    input_path = "/Users/isthis/Documents/2021/Programming/Practice/AllPractice/pythonprac/img/" # 파일 위치
+                    files = glob.glob(os.path.join(input_path, f'{title}*')) # 파일 가져오기
+                    stored_names = list(map(lambda x: x.split("/")[10], files)) # 저장될 이름
                     print(files)
                     print(stored_names)
 
                     for file, name in zip(files, stored_names):
-                        s3.upload_file(file, bucketName, f'perfumes/{name}')
-                        changedUrl = parse.quote(name)
-                        changedUrl = changedUrl.replace('%20', '+')
-                        imgUrl = f'https://{bucketName}.s3.ap-northeast-2.amazonaws.com/perfumes/' + changedUrl
+                        s3.upload_file(file, bucketName, f'perfumes/{name}') # S3에 파일 업로드
+                        changedUrl = parse.quote(name) # Url 주소 획득 중 - url 인코딩 실시
+                        changedUrl = changedUrl.replace('%20', '+') # Url 주소 획득 중
+                        imgUrl = f'https://{bucketName}.s3.ap-northeast-2.amazonaws.com/perfumes/' + changedUrl # S3에 업로드 된 Url 주소 획득
 
                     row = {
                         #'brand' : brand,
@@ -217,9 +218,8 @@ for a in range(pagesCnt):
 print(result)
 print(len(result))
 
+#cvs파일로 추출
 df = pd.DataFrame(result)
 df.to_csv('./perfumeBasic.cvs', index=False)
 
 driver.quit()
-
-# https://for-it-study.tistory.com/38 ===> img 다운
