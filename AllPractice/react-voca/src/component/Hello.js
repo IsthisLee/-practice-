@@ -1,19 +1,25 @@
-export default function Hello() {
-  const showName = () => {
-    console.log('Geonhee');
-  };
-  const showAge = age => {
-    console.log(age);
-  };
-  const showText = txt => {
-    console.log(txt);
-  };
+import { useState } from 'react';
+import UserName from './UserName';
+
+export default function Hello({ age }) {
+  const [name, setName] = useState('Geonhee');
+  const [koreanAge, setKoreanAge] = useState(age);
+  const msg = koreanAge > 19 ? '성인 입니다.' : '미성년자 입니다.';
+
   return (
     <div>
-      <h1>Hello</h1>
-      <button onClick={showName}>Show name</button>
-      <button onClick={() => showAge(30)}>Show age</button>
-      <input type="text" onChange={e => showText(e.target.value)} />
+      <h2>
+        {name}({koreanAge}) : {msg}
+      </h2>
+      <UserName name={name} />
+      <button
+        onClick={() => {
+          setName(name === 'Geonhee' ? 'Jaeyong' : 'Geonhee');
+          setKoreanAge(koreanAge + 1);
+        }}
+      >
+        Change Name
+      </button>
     </div>
   );
 }
