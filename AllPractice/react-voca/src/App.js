@@ -5,11 +5,15 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <DayList />
-      <Day />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Header />
+        <Switch>
+          <DayList />
+          <Day />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 
