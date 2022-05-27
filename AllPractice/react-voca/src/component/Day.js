@@ -6,6 +6,7 @@ export default function Day() {
 
   return (
     <div>
+      <h2>Day {day}</h2>
       <table>
         <tbody>
           {wordList.map(word => (
