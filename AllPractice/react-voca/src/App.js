@@ -20,3 +20,7 @@ function App() {
 }
 
 export default App;
+
+//json-server 띄우기.
+//npm install -g json-server
+//json-server --watch ./src/db/data.json --port 3001
