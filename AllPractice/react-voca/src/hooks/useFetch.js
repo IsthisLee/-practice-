@@ -11,7 +11,5 @@ export default function useFetch(url) {
       });
   }, [url]);
 
-  console.log('data : ', data);
-
   return data;
 }
