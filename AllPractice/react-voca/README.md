@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Learning React
 
-추가할 기능 : Day 삭제, Day 페이지 내에서 Day 이동
+추가할 기능 : TypeScript 적용, Day 삭제, Day 페이지 내에서 Day 이동
 
 ## Available Scripts
 
