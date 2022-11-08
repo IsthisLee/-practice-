@@ -1,11 +1,12 @@
+import { Cat, CatType } from "app.model";
 import * as express from "express";
 
 const app: express.Express = express();
 
-const port: number = 3000;
+const port: number = 8080;
 
 app.get("/", (req: express.Request, res: express.Response) => {
-  res.send({ name: "Geonhee Lee", age: 23, friends: ["gh", "ys", "ss"] });
+  res.send({ cats: Cat });
 });
 
 app.listen(port, () => {
