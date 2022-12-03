@@ -1,5 +1,6 @@
-import { Cat, CatType } from "./app.model";
+import { Cat, CatType } from "./cats/cats.model";
 import * as express from "express";
+import catsRouter from "./cats/cats.route";
 
 const app: express.Express = express();
 
@@ -33,58 +34,8 @@ const moduleMiddleware = (
 //* json parsing middleware
 app.use(express.json());
 
-//* READ 고양이 전체 데이터 조회 api
-app.get("/cats", (req, res) => {
-  try {
-    const cats = Cat;
-    res.status(200).send({
-      success: true,
-      data: { cats }
-    });
-  } catch (error) {
-    res.status(500).send({
-      success: false,
-      error: error.message
-    });
-  }
-});
-
-//* READ 특정 고양이 데이터 조회 api
-app.get("/cats/:id", (req, res) => {
-  try {
-    const { id } = req.params;
-    const cat = Cat.find((cat) => cat.id === id);
-
-    res.status(200).send({
-      success: true,
-      data: { cat }
-    });
-  } catch (error) {
-    res.status(500).send({
-      success: false,
-      error: error.message
-    });
-  }
-});
-
-//* CREATE 새로운 고양이 추가 api
-app.post("/cats", (req, res) => {
-  try {
-    const data = req.body;
-
-    Cat.push(data); // create a new cat
-
-    res.json({
-      success: true,
-      cats: Cat
-    });
-  } catch (error) {
-    res.status(500).send({
-      success: false,
-      error: error.message
-    });
-  }
-});
+//* 분리한(모듈화된) Router 사용
+app.use(catsRouter);
 
 //* 404 Middleware
 app.get("/*", (req, res, next) => {
