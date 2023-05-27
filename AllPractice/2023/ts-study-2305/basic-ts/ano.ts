@@ -12,4 +12,4 @@ const c: boolean = true;
 
 // 타입 추론
 let d = 1; // 타입 추론에 의해 number로 추론
-d = "hi"; // 에러 발생
+// d = "hi"; // 에러 발생
