@@ -74,4 +74,4 @@ const arr9 = [
 ];
 console.log(arr9);
 arr9.push("ohohoh");
-console.log(arr9);
+console.log(arr9); // 논리적인 튜플 자료구조라 push를 사용해도 적용됨. 한계가 존재. 추후 함수형 프로그래밍 시 활용됨.
