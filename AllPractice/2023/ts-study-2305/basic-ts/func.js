@@ -27,6 +27,13 @@ console.log(multiple2(1, 2)());
 /   const sex: sexType = "MALE";
 /   const sex2: sexEnum = sexEnum.MALE;
 */
+/** never 타입 */
+// - 절대 발생할 수 없는 타입을 나타냄
+// - 함수에서 throw를 사용하여 에러를 발생시킬 때
+// - 변수가 타입 가드에 의해 아무 타입도 얻지 못하게 좁혀지면 never 타입을 얻게 됨.
+// - never 타입은 모든 타입의 subtype이며, 모든 타입에 할당할 수 있음
+// - 하지만 never에는 그 어떤 것도 할당할 수 없음
+// - any조차도 never에는 할당할 수 없음
 function sendError() {
     console.log("에러 발생");
 }
