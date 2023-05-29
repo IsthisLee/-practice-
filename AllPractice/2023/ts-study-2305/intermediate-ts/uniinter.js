@@ -1,5 +1,5 @@
 "use strict";
-// 1. union 합집합 -> | (OR)
+/**----- 1. union 합집합 -> | (OR) -----*/
 let nameOrAge;
 nameOrAge = "geon";
 nameOrAge = 24;
@@ -16,7 +16,7 @@ function prtUnion(params) {
 }
 prtUnion({ name: "geon" });
 prtUnion({ age: 24 });
-// 2. intersection 교집합 -> & (AND)
+/**----- 2. intersection 교집합 -> & (AND)  -----*/
 const nameAndAge = {
     name: "geon",
     age: 24
