@@ -14,20 +14,36 @@ user.age = 13;
 // 접근 제한자를 사용
 class UserInfo2 {
     // private은 밑줄(_) 붙이는 것이 관례
-    constructor(name, age, city) {
+    constructor(name, weight, city, age) {
         this.name = name;
-        this.age = age;
+        this.weight = weight;
         this._city = city;
+        this._age = age;
     }
-    // getter
+    // private 은 getter, setter를 사용하여 접근할 수 있음
+    // 데이터를 다루는 값은 private으로 설정하여 getter, setter를 사용하는 것이 좋음
+    // ---- getter ----
+    /** getter를 사용하면 원하는 로직을 추가하여 값을 리턴할 수 있음
+     * 백엔드에서 데이터를 가져올 때, 데이터를 가공하여 가져오는 경우가 많음
+     * 이런 경우, getter를 사용하여 가공된 데이터를 가져올 수 있음
+     */
     get city() {
         return this._city + "시";
     }
-    // setter
+    // ---- setter ----
     set city(newCity) {
         this._city = newCity;
     }
+    set age(newAge) {
+        if (newAge < 0)
+            this._age = 0; // 요구사항에 따라 에러를 내는 등 로직을 추가할 수 있음
+        // 데이터 무결성 유지
+        this._age = newAge;
+    }
 }
-const user2 = new UserInfo2("거니", 24, "Seoul");
+const user2 = new UserInfo2("거니", 62, "Seoul", 24);
 user2.city = "Hwaseong"; // 자동으로 set city() 메서드가 호출됨
 console.log(user2.city); // 자동으로 get city() 메서드가 호출됨
+user.age = -24; // setter를 사용하면, 원하는 로직을 추가하여 값을 설정할 수 있음
+// 위와 같이 나이가 음수가 되는 것을 막을 수 있음
+// 오류나 안 좋은 코드는 아니지만, 말이 안되는 값과 데이터의 무결성을 맞추기 위해 사용
