@@ -11,7 +11,10 @@ console.log(voidVar, nullVar, undefinedVar);
 function printName(params) {
     var _a;
     console.log("printName on!");
+    // 프론트와 같이 다른 곳에서 어떤 값이 넘어올 지 모르기 때문에 에러 방지를 위해 ?를 사용하여 접근
     console.log((_a = params === null || params === void 0 ? void 0 : params.name) !== null && _a !== void 0 ? _a : "default");
 }
 // printName({ name: "geonhee" });
-printName(undefined);
+// printName(undefined); // strictNullChecks = false 일 때는 undefined를 넘길 수 있음.
+// strictNullCehcks = false 인 경우, printName 함수에서 참조 에러가 발생함.
+// strictNullChecks = true 인 경우, undefined를 넘길 수 없음.
