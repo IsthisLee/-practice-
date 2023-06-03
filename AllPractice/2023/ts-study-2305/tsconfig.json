@@ -107,5 +107,12 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
   "include": ["**/*.ts"], // 어떤 파일을 컴파일 할 것인지
-  "exclude": ["node_modules"] // 어떤 파일을 제외할 것인지
+  "exclude": ["node_modules"], // 어떤 파일을 제외할 것인지
+  "extends": "@tsconfig/node16/tsconfig.json",
+  "ts-node": {
+    "compilerOptions": {
+      "target": "ES6",
+      "module": "commonjs"
+    }
+  }
 }
