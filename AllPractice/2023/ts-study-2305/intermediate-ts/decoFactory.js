@@ -1,12 +1,23 @@
-// f(g(x)) ----> f () { regurn g() } , g: 데코레이터 함수
-// g ----> f(g(x)) , f: 데코레이터 팩토리 (데코레이터 함수를 반환하며 감싸고 있는 함수)
-// 데코레이터 팩토리 목적 : 인자전달, param 전달
+// 정리
+/**
+ * 1. 팩토리가 데코레이터 함수를 감싸고 있음.
+ * 2. 목적 : 인자 전달, param 전달
+ * 3. 데코레이터 함수의 첫 번째 인자는 constructor가 아닌 target이 넘어감
+ * 3-0. 클래스 외부에서 사용 시에는 constructor가 넘어감
+ * 3-1. target은 해당 데코레이터가 불린 대상(자기가 불려진 클래스)
+ * 3-2. 따라서, target에 접근해서 class의 메소드를 호출할 수 있음
+ * 3-3. 또는 두번 째 인자인 propertyKey를 통해 본인 메소드를 호출할 수 있음
+ */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+// ----------------------------------------------------------------------------------------------
+// f(g(x)) ----> f () { regurn g() } , g: 데코레이터 함수
+// g ----> f(g(x)) , f: 데코레이터 팩토리 (데코레이터 함수를 반환하며 감싸고 있는 함수)
+// 데코레이터 팩토리 목적 : 인자전달, param 전달
 // 데코레이터 팩토리로 됨
 function Controller2(param) {
     console.log("[Controller] Deco Factory: ", param);
@@ -22,7 +33,7 @@ function Get2(params) {
 function POST2(params) {
     console.log("[POST] Deco Factory : ", params);
     return function (
-    // 해당 메소드 데코레이터가 불린 대상
+    // 해당 메소드 데코레이터가 불린 대상(부모 클래스)
     target, // 내부에 사용 시 target이 넘어감
     propertyKey, descriptor) {
         console.log("[POST] Deco Function : ", target, propertyKey, descriptor);
@@ -45,10 +56,10 @@ var ExampleController2 = /** @class */ (function () {
         this._email = email;
     }
     ExampleController2.prototype.getReq = function () {
-        console.log("getReq method provess!");
+        console.log("getReq method process!");
     };
     /**
-     * 아래 실행 결과 :
+     * 파일 실행 시 아래 코드에 대한 출력 결과 :
      * [POST] Deco Factory :  /board
      * [UseGuard] Deco Factory :
      * [UseGuard] Deco Function :  ...
@@ -64,7 +75,7 @@ var ExampleController2 = /** @class */ (function () {
      * Decoator => bottom to top 실행
      */
     ExampleController2.prototype.postReq = function () {
-        console.log("postReq method provess!");
+        console.log("postReq method process!");
     };
     __decorate([
         Column2("email")

@@ -61,7 +61,7 @@ function UseGuard(): any {
   };
 }
 
-// 오버라이딩 되면서 constructor가 넘어가지 않고, 인자가 넘어감 -> 데코레이터 팩토리 사용하여 인자 전달
+// 오버라이딩(재정의) 되면서 constructor가 넘어가지 않고, 인자가 넘어감 -> 데코레이터 팩토리 사용하여 인자 전달
 @Controller2("/api/v1")
 class ExampleController2 {
   @Column2("email")
