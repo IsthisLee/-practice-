@@ -28,26 +28,6 @@ console.log(Object.getPrototypeOf(p));
 console.log("--------------------");
 
 // 위 클래스는 아래와 같이 작성할 수 있다.
-function Person2(this, name, city) {
-  this.name = name;
-  this.city = city;
-
-  this.getName = function () {
-    console.log(`my name is ${this.name}`);
-  };
-}
-
-// 상속
-function Student(this, name, city, school) {
-  Person2.call(this, name, city); // Person2의 this를 Student의 this로 바인딩하여 상속
-  this.school = school;
-
-  this.getSchool = function () {
-    // 화살표 함수로 작성하면 this가 바인딩 되지 않아 전역 객체(상위 컨텍스트)를 가리키게 되므로 사용 금지.
-    console.log(`my school is ${this.school}`);
-  };
-}
-
 interface IPerson {
   (name: string, city: string): void; // Person 생성자 함수의 타입 정의
 
@@ -63,6 +43,25 @@ interface IStudent extends IPerson {
   school: string;
 
   getSchool: () => void;
+}
+
+function Person2(this, name, city) {
+  this.name = name;
+  this.city = city;
+
+  this.getName = function () {
+    console.log(`my name is ${this.name}`);
+  };
+}
+
+// 상속
+function Student(this: IStudent, name, city, school) {
+  Person2.call(this, name, city); // Person2의 this를 Student의 this로 바인딩하여 상속
+  this.school = school;
+
+  this.getSchool = function () {
+    console.log(`my school is ${this.school}`);
+  };
 }
 
 const s: IStudent = new Student("geon", "seoul", "seoul high school");

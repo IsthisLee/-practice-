@@ -4,7 +4,7 @@ interface IAdd {
   a: number;
   b: number;
 
-  getResult: () => number;
+  getResult(): number;
 }
 
 // 위 인터페이스를 구현하는 클래스
