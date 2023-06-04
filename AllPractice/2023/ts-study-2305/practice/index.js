@@ -1,0 +1,42 @@
+"use strict";
+/** 자바스크립트(TS) 환경에서는 클래스 사용을 지양하자.
+ * js는 프로토타입 기반 언어, java 같은 게 클래스 기반 언어이다.
+ * js 환경에서 클래스를 사용하면 프로토타입과 함수 기반으로 변환되기 때문에 성능이 떨어지고 최적화가 어렵다.
+ * (ts -> js 컴파일 과정에서 클래스를 함수 기반으로 변환됨.(target ES5로 설정) 확인해보면 알 수 있다.)
+ *
+ * oop 공부 목적으로 js 환경에서 클래스를 사용해보자.
+ *
+ * 사용하는 경우 - 재사용이 많은 경우
+ */
+var Person = /** @class */ (function () {
+    function Person(name, city) {
+        this.name = name;
+        this.city = city;
+    }
+    Person.prototype.getName = function () {
+        console.log("my name is ".concat(this.name));
+    };
+    return Person;
+}());
+var p = new Person("geon", "seoul");
+console.log(p, p.getName());
+console.log(Object.getPrototypeOf(p));
+console.log("--------------------");
+// 위 클래스는 아래와 같이 작성할 수 있다.
+function Person2(name, city) {
+    this.name = name;
+    this.city = city;
+    this.getName = function () {
+        console.log("my name is ".concat(this.name));
+    };
+}
+// 상속
+function Student(name, city, school) {
+    Person2.call(this, name, city); // Person2의 this를 Student의 this로 바인딩하여 상속
+    this.school = school;
+    this.getSchool = function () {
+        console.log("my school is ".concat(this.school));
+    };
+}
+var s = new Student("geon", "seoul", "seoul high school");
+console.log(s, s.getName(), s.getSchool());
