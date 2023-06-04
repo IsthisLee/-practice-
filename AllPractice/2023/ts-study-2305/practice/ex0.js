@@ -8,6 +8,8 @@
  *
  * 사용하는 경우 - 재사용이 많은 경우
  */
+// 아래 예제를 통해 클래스를 함수 + 인터페이스로 대체하는 방법을 알아보자.
+// + 인터페이스는 js 컴파일 과정에서 제거되므로, 빌드된 코드가 가벼워진다.
 var Person = /** @class */ (function () {
     function Person(name, city) {
         this.name = name;
@@ -21,6 +23,7 @@ var Person = /** @class */ (function () {
 var p = new Person("geon", "seoul");
 console.log(p, p.getName());
 console.log(Object.getPrototypeOf(p));
+// ----------------------------------------------------------
 console.log("--------------------");
 // 위 클래스는 아래와 같이 작성할 수 있다.
 function Person2(name, city) {
@@ -35,6 +38,7 @@ function Student(name, city, school) {
     Person2.call(this, name, city); // Person2의 this를 Student의 this로 바인딩하여 상속
     this.school = school;
     this.getSchool = function () {
+        // 화살표 함수로 작성하면 this가 바인딩 되지 않아 전역 객체(상위 컨텍스트)를 가리키게 되므로 사용 금지.
         console.log("my school is ".concat(this.school));
     };
 }
