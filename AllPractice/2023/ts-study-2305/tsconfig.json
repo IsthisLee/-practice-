@@ -108,7 +108,7 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "include": ["job-skills/*.ts"], // 어떤 파일을 컴파일 할 것인지
+  "include": ["practice/*.ts"], // 어떤 파일을 컴파일 할 것인지
   "exclude": ["node_modules"], // 어떤 파일을 제외할 것인지
   "extends": "@tsconfig/node16/tsconfig.json",
   "ts-node": {
