@@ -11,7 +11,7 @@ class IDetail2 {
 type typeSNS = "KAKAO" | "NAVER" | "GOOGLE";
 
 interface IUser {
-  detail: IDetail;
+  detail: IDetail2;
   marketing: boolean;
   sns: typeSNS;
 }
