@@ -24,4 +24,5 @@ const temp1: IAdd = new add(1, 2); // new 연산자를 사용하려면 함수가
 const temp2: typeof add = new add(4, 5);
 
 console.log(temp1.getResult());
-console.log(temp2.getResult());
+// console.log(temp2.getResult());
+// -> Property 'getResult' does not exist on type '(this: IAdd, a: number, b: number) => void'.ts(2339)
