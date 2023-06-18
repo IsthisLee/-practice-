@@ -3,6 +3,7 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 
 // The GraphQL schema
 // api-docs를 구성하고 응답으로 돌려줄 타입을 정의
+// GraphQL 스키마 정의 언어(Schema Definition Language, SDL)를 사용하여 스키마를 정의
 const typeDefs = `#graphql
   type Board {
     number: Int
@@ -61,8 +62,18 @@ const resolvers = {
     }
   },
   Mutation: {
-    createBoardOrigin: (parent, args, context, info) =>
-      "게시물 등록에 성공하였습니다!!",
+    createBoardOrigin: (parent, args, context, info) => {
+      fetchBoards("01012345678");
+      // -> fetchBoards의 parent 인자에 값이 담겨서 넘어감.
+
+      console.log(context.req);
+      console.log(context.res);
+      // -> context에는 req, res 등이 담겨있음.
+
+      // info에는 graphQL의 기본 정보가 담겨있음.
+
+      return "게시물 등록에 성공하였습니다!!";
+    },
     createBoard: (_, args) => {
       // 1. 브라우저에서 보내준 데이터 확인하기
       console.log(args);
