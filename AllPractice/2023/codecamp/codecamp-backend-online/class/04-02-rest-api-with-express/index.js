@@ -1,6 +1,6 @@
 // const express = require('express')
 import express from "express";
-import { checkValidationPhone, getToken, sendTokenToSMS } from "./phone.js";
+import phoneFuncs from "./phone.js";
 
 const app = express();
 
@@ -47,14 +47,14 @@ app.post("/tokens/phone", (req, res) => {
   const myPhone = req.body.myPhone;
 
   // 1. 휴대폰번호 자릿수 맞는지 확인하기
-  const isValid = checkValidationPhone(myPhone);
+  const isValid = phoneFuncs.checkValidationPhone(myPhone);
 
   if (isValid) {
     // 2. 핸드폰 토큰 6자리 만들기
-    const myToken = getToken();
+    const myToken = phoneFuncs.getToken();
 
     // 3. 핸드폰번호에 토큰 전송하기
-    sendTokenToSMS(myPhone, myToken);
+    phoneFuncs.sendTokenToSMS(myPhone, myToken);
     res.send("인증완료!!!");
   }
 });
