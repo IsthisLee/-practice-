@@ -1,0 +1,11 @@
+FROM ubuntu
+WORKDIR /app
+
+# bash 스크립트를 작성하고 실행 가능하도록 권한을 설정.
+# trap을 사용하여 SIGTERM 신호를 받으면 "SIGTERM received"라는 메시지를 출력하고 종료.
+# 그렇지 않으면 계속해서 1초마다 sleep하는 무한 루프를 실행.
+RUN echo 'bash\n\
+trap "echo SIGTERM received; exit" SIGTERM\n\
+while true; do sleep 1; done' > loop.sh && chmod +x loop.sh
+
+CMD ["bash", "/app/loop.sh"]
