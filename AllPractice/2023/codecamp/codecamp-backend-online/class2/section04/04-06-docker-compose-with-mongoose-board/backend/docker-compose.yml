@@ -1,0 +1,25 @@
+version: "3.7"
+
+# 컴퓨터들
+services:
+  # 컴퓨터 이름
+  my-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 4000:4000
+
+  # 컴퓨터 이름
+  my-database:
+    image: mongo:5
+    ports:
+      - 27017:27017
+#
+#
+# ----- docker-compose(또는 docker compose) 명령어 목록 -----
+#
+# $ docker-compose build -> docker-compose.yml 파일을 참고하여 이미지를 빌드
+# $ docker-compose up -> docker-compose.yml 파일을 참고하여 컨테이너를 생성 및 실행(컨테이너가 없으면 빌드 후 실행)
+# $ docker-compose stop -> 컨테이너를 종료
+# $ docker-compose down -> 컨테이너를 종료하고 삭제
