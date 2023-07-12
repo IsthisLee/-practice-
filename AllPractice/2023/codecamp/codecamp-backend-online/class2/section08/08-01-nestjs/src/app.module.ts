@@ -5,6 +5,6 @@ import { AppService } from './app.service';
 @Module({
   imports: [],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService], // new AppController(AppService) 이런 의미
 })
 export class AppModule {}
