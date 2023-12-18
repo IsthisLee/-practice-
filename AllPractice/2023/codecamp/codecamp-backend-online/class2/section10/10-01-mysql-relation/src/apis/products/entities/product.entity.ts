@@ -22,7 +22,7 @@ export class Product {
   name: string; // default varchar(255)
 
   @Column()
-  desciption: string;
+  description: string;
 
   @Column()
   price: number;
